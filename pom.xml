@@ -66,6 +66,13 @@
             <version>2.26.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+        <dependency>
+            <groupId>org.kohsuke</groupId>
+            <artifactId>github-api</artifactId>
+            <version>1.105</version>
+        </dependency>
+
     </dependencies>
 
     <build>
