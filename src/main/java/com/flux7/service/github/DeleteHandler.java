@@ -19,6 +19,10 @@ public class DeleteHandler extends BaseHandler<CallbackContext> {
 
         // TODO : put your code here
 
+        System.out.println("Output from Delete handler .... \n");
+
+        // your code ends here
+
         return ProgressEvent.<ResourceModel, CallbackContext>builder()
             .resourceModel(model)
             .status(OperationStatus.SUCCESS)

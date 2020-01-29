@@ -21,7 +21,14 @@
     "handlers": {
         "create": {
             "permissions": [
-                "ec2:RunInstances"
+            ]
+        },
+        "read": {
+            "permissions": [
+            ]
+        },
+        "delete": {
+            "permissions": [
             ]
         }
     },
