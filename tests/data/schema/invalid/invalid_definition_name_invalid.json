@@ -1,0 +1,15 @@
+{
+    "typeName": "AWS::Valid::TypeName",
+    "description": "a test schema",
+    "definitions": {
+        "name.has.invalid.characters$": {
+            "type": "integer"
+        }
+    },
+    "properties": {
+        "property1": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,15 @@
+{
+    "typeName": "Flux7::Service::Github",
+    "language": "java",
+    "runtime": "java8",
+    "entrypoint": "com.flux7.service.github.HandlerWrapper::handleRequest",
+    "testEntrypoint": "com.flux7.service.github.HandlerWrapper::testEntrypoint",
+    "settings": {
+        "namespace": [
+            "com",
+            "flux7",
+            "service",
+            "github"
+        ]
+    }
+}

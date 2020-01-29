@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  This CloudFormation template provisions all the infrastructure that is
+  required to upload artifacts to CloudFormation's managed experience.
+
+Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: BucketOwnerFullControl
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: aws:kms
+            KMSMasterKeyID: !Ref EncryptionKey
+      LifecycleConfiguration:
+        Rules:
+          - Id: MultipartUploadLifecycleRule
+            Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+
+  ArtifactCopyPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ArtifactBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: Allow CloudFormation to copy artifacts from the bucket
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action:
+              - s3:ListBucket
+              - s3:GetObject
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${ArtifactBucket}"
+              - !Sub "arn:${AWS::Partition}:s3:::${ArtifactBucket}/*"
+
+  EncryptionKey:
+    Type: AWS::KMS::Key
+    DeletionPolicy: Retain
+    Properties:
+      Description: KMS key used to encrypt the resource type artifacts
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Statement:
+        - Sid: Enable full access for owning account
+          Effect: Allow
+          Principal:
+            AWS: !Ref AWS::AccountId
+          Action: kms:*
+          Resource: "*"
+        - Sid: Enable access for cloudformation to copy encrypted objects
+          Effect: Allow
+          Principal:
+            Service: cloudformation.amazonaws.com
+          Action:
+            - "kms:Encrypt"
+            - "kms:Decrypt"
+            - "kms:ReEncrypt*"
+            - "kms:GenerateDataKey*"
+            - "kms:DescribeKey"
+          Resource: "*"
+
+  LogAndMetricsDeliveryRole:
+    Type: AWS::IAM::Role
+    Properties:
+      MaxSessionDuration: 43200
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - cloudformation.amazonaws.com
+              - resources.cloudformation.amazonaws.com
+          Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: LogAndMetricsDeliveryRolePolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:DescribeLogGroups
+            - logs:DescribeLogStreams
+            - logs:PutLogEvents
+            - cloudwatch:ListMetrics
+            - cloudwatch:PutMetricData
+            Resource: "*"
+
+Outputs:
+  CloudFormationManagedUploadBucketName:
+    Value: !Ref ArtifactBucket
+  LogAndMetricsDeliveryRoleArn:
+    Value: !GetAtt LogAndMetricsDeliveryRole.Arn

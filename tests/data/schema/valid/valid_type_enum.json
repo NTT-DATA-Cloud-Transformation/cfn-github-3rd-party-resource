@@ -1,0 +1,17 @@
+{
+    "typeName": "AWS::Valid::TypeName",
+    "description": "a test schema",
+    "properties": {
+        "property1": {
+            "type": "string",
+            "enum": [
+                "test",
+                "test2"
+            ]
+        }
+    },
+    "primaryIdentifier": [
+        "/properties/property1"
+    ],
+    "additionalProperties": false
+}
