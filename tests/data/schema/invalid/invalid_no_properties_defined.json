@@ -1,9 +1,0 @@
-{
-    "typeName": "AWS::Valid::TypeName",
-    "description": "a test schema",
-    "properties": {},
-    "primaryIdentifier": [
-        "/properties/property1"
-    ],
-    "additionalProperties": false
-}

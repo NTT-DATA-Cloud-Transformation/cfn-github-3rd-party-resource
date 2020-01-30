@@ -5,21 +5,15 @@ import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import software.amazon.cloudformation.proxy.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Base64;
 
 public class CreateHandler extends BaseHandler<CallbackContext> {
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(final AmazonWebServicesClientProxy proxy,
-            final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
-            final Logger logger) {
+                                                                       final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
+                                                                       final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
 
@@ -30,7 +24,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                     "https://www.flux7.com/", true/* public */);
             repo.addCollaborators(github.getUser("deepsvc"));
 
-        //    github = new GitHubBuilder().withOAuthToken("e4b2de4fb741288ae1de3f2b7cffde62c7c1e36b").build();
+            //    github = new GitHubBuilder().withOAuthToken("e4b2de4fb741288ae1de3f2b7cffde62c7c1e36b").build();
 
             // String userCredentials = "e4b2de4fb741288ae1de3f2b7cffde62c7c1e36b";
             // String basicAuth = "e4b2de4fb741288ae1de3f2b7cffde62c7c1e36b" + new
