@@ -15,3 +15,21 @@ automatically overwritten.
 The code use [Lombok](https://projectlombok.org/), and [you may have to install
 IDE integrations](https://projectlombok.org/) to enable auto-complete for
 Lombok-annotated classes.
+
+## How to use custome resource
+Sample cloudformation template -
+```
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Github stack",
+    "Resources": {
+        "MyGithubRepo": {
+            "Type": "Flux7::Service::Github",
+            "Properties": {
+                "RepositoryName": "<Repository name>",
+                "RepositoryAccessToken": "<Your repo token>"
+            }
+        }
+    }
+}
+```
