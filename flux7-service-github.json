@@ -2,7 +2,7 @@
     "typeName": "Flux7::Service::Github",
     "description": "An example resource schema demonstrating some basic constructs and validation rules.",
     "additionalProperties": false,
-    "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+    "sourceUrl": "https://github.com/Flux7Labs/aws-3rd-party-github-repo.git",
     "properties": {
         "RepositoryName": {
             "type" : "string"
@@ -32,7 +32,14 @@
             ]
         }
     },
+    "createOnlyProperties": [
+        "/properties/RepositoryName",
+        "/properties/RepositoryAccessToken",
+        "/properties/RepositoryOwner"
+    ],
     "primaryIdentifier": [
-        "/properties/RepositoryName"
+        "/properties/RepositoryName",
+        "/properties/RepositoryAccessToken",
+        "/properties/RepositoryOwner"
     ]
 }
