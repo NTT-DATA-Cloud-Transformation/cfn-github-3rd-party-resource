@@ -27,9 +27,21 @@ Sample cloudformation template -
             "Type": "Flux7::Service::Github",
             "Properties": {
                 "RepositoryName": "<Repository name>",
-                "RepositoryAccessToken": "<Your repo token>"
+                "RepositoryAccessToken": "<Your repo token>",
+                "IsPrivate": true,
+                "RepositoryDescription": "<Repo Description>",
+                "RepositoryOwner": "<Repo Owner>",
+                "OrganizationName": "<Org Name>"
             }
         }
     }
 }
 ```
+## Commands to Create Custom Resource
+
+`$ mvn package`
+`$ cfn submit -v --region <region>`
+##### To set Default Version (if needed)
+`$ aws cloudformation set-type-default-version --type "RESOURCE" --type-name "<resource name (sample::resource::type)>" --version-id "<version_id>" --region <region>`
+##### To run the stack
+`$ aws cloudformation create-stack --region <region> --template-body "file://stack.json" --stack-name "<stack_name>"`
