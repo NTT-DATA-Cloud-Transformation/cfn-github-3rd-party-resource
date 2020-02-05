@@ -46,6 +46,10 @@
         "delete": {
             "permissions": [
             ]
+        },
+        "update": {
+            "permissions": [
+            ]
         }
     },
     "createOnlyProperties": [
