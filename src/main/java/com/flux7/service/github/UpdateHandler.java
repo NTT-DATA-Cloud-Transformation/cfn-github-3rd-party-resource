@@ -25,21 +25,23 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
         try {
             // TODO : put your code here
 
-            String repoName = model.getRepositoryName();
-            String gitToken = model.getRepositoryAccessToken();
-            String repoDescription = model.getRepositoryDescription();
+//            String repoName = model.getRepositoryName();
+//            String gitToken = model.getRepositoryAccessToken();
+//            String repoDescription = model.getRepositoryDescription();
 
-            GitHub github = new GitHubBuilder().withOAuthToken(gitToken).build();
-            GHRepository repo = github.getRepository(repoName);
-            repo.setDescription(repoDescription);
+//            GitHub github = new GitHubBuilder().withOAuthToken(gitToken).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GHRepository repo = github.getRepository(model.getOrganizationName()+"/" + model.getRepositoryName());
 
-            System.out.println("New description : " + repoDescription);
+            repo.setDescription(model.getRepositoryDescription());
+
+//            System.out.println("New description : " + repoDescription);
 
         } catch (NullPointerException e) {
 
             e.printStackTrace();
 
-        } catch (IOException e) {
+        }  catch (IOException e) {
 
             e.printStackTrace();
 
