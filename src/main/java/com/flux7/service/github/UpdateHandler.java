@@ -31,9 +31,14 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
 
 //            GitHub github = new GitHubBuilder().withOAuthToken(gitToken).build();
             GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
-            GHRepository repo = github.getRepository(model.getOrganizationName()+"/" + model.getRepositoryName());
 
-            repo.setDescription(model.getRepositoryDescription());
+            if (model.getOrganizationName() == null) {
+                GHRepository repo = github.getRepository(model.getRepositoryName());
+                repo.setDescription(model.getRepositoryDescription());
+            } else {
+                GHRepository repo = github.getRepository(model.getOrganizationName()+"/" + model.getRepositoryName());
+                repo.setDescription(model.getRepositoryDescription());
+            }
 
 //            System.out.println("New description : " + repoDescription);
 
