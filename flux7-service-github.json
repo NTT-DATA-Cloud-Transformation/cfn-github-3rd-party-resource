@@ -39,10 +39,6 @@
             "permissions": [
             ]
         },
-        "read": {
-            "permissions": [
-            ]
-        },
         "delete": {
             "permissions": [
             ]
@@ -52,10 +48,6 @@
             ]
         }
     },
-    "createOnlyProperties": [
-        "/properties/RepositoryName",
-        "/properties/RepositoryAccessToken"
-    ],
     "primaryIdentifier": [
         "/properties/RepositoryName"
     ]
