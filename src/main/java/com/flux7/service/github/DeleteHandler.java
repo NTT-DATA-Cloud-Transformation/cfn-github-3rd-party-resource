@@ -12,7 +12,6 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 import java.io.IOException;
 
-import static java.lang.Thread.sleep;
 
 public class DeleteHandler extends BaseHandler<CallbackContext> {
 
@@ -22,19 +21,26 @@ public class DeleteHandler extends BaseHandler<CallbackContext> {
             final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-        final ResourceModel model1 = request.getPreviousResourceState();
 
         // TODO : code starts here
 
-        try {            
+        try {
 
-            GitHub github = new GitHubBuilder().withOAuthToken(model1.getRepositoryAccessToken()).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
 
-                GHRepository repo = github.getRepository(model1.getRepositoryName());
-//                sleep(10000);
+            GHMyself ghm = github.getMyself();
+            String username = ghm.getLogin();
+
+            if (model.getOrganizationName() == null) {
+                GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
                 repo.delete();
 
-        } catch (NullPointerException | IllegalStateException | IOException e) {
+            } else {
+                GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
+                repo.delete();
+            }
+
+        } catch (NullPointerException | IOException | IllegalStateException e) {
 
             e.printStackTrace();
 
