@@ -24,7 +24,8 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             if (model.getOrganizationName() == null) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
-                builder = github.getOrganization(model.getOrganizationName()).createRepository(model.getRepositoryName());
+                builder = github.getOrganization(model.getOrganizationName())
+                        .createRepository(model.getRepositoryName());
             }
 
             builder.private_(model.getIsPrivate()).homepage("www.flux7.com").issues(false).downloads(false).wiki(false)
