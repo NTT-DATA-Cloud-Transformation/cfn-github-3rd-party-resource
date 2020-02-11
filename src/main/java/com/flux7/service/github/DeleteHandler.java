@@ -12,7 +12,6 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 import java.io.IOException;
 
-import static java.lang.Thread.sleep;
 
 public class DeleteHandler extends BaseHandler<CallbackContext> {
 
@@ -41,7 +40,7 @@ public class DeleteHandler extends BaseHandler<CallbackContext> {
                 repo.delete();
             }
 
-        } catch (NullPointerException | IllegalStateException | IOException e) {
+        } catch (NullPointerException | IOException | IllegalStateException e) {
 
             e.printStackTrace();
 
