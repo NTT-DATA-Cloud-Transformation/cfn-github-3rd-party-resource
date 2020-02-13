@@ -19,3 +19,5 @@ target/
 # our logs
 rpdk.log
 .factorypath
+stack.json
+.vscode/settings.json

@@ -16,9 +16,9 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-        try {
+        // TODO : code starts here
 
-            // TODO : put your code here
+        try {
 
             GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
 
@@ -28,7 +28,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             if (model.getOrganizationName() == null) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
                 repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate() == true) {
+                if (model.getIsPrivate()) {
                     repo.setPrivate(true);
                 } else {
                     repo.setPrivate(false);
@@ -36,26 +36,20 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             } else {
                 GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
                 repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate() == true) {
+                if (model.getIsPrivate()) {
                     repo.setPrivate(true);
                 } else {
                     repo.setPrivate(false);
                 }
             }
 
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException | IllegalStateException e) {
 
             e.printStackTrace();
 
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
         }
 
-        // TODO : your code end here
+        // TODO : code ends here
 
         return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
                 .status(OperationStatus.SUCCESS).build();
