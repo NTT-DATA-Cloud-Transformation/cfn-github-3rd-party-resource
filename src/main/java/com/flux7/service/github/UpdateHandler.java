@@ -42,16 +42,19 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
                     repo.setPrivate(false);
                 }
             }
-
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.SUCCESS)
+                    .build();
         } catch (NullPointerException | IOException | IllegalStateException e) {
-
-            e.printStackTrace();
-
+            logger.log(e.getMessage());
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.FAILED)
+                    .message(e.getMessage())
+                    .build();
         }
 
         // TODO : code ends here
-
-        return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                .status(OperationStatus.SUCCESS).build();
     }
 }
