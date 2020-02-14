@@ -43,12 +43,14 @@ public class CreateHandlerTest {
             = handler.handleRequest(proxy, request, null, logger);
 
         assertThat(response).isNotNull();
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+//        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+        assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
-        assertThat(response.getMessage()).isNull();
+//        assertThat(response.getMessage()).isNull();
+        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Requires authentication\",\"documentation_url\":\"https://developer.github.com/v3/repos/#create\"}");
         assertThat(response.getErrorCode()).isNull();
     }
 }

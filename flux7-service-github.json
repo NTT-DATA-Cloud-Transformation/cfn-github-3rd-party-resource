@@ -32,8 +32,7 @@
     },
     "required": [
         "RepositoryName",
-        "RepositoryAccessToken",
-        "IsPrivate"
+        "RepositoryAccessToken"
     ],
     "handlers": {
         "create": {
