@@ -15,7 +15,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-
+        // TODO : code starts here
         try {
             GHCreateRepositoryBuilder builder;
 
@@ -28,15 +28,25 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                         .createRepository(model.getRepositoryName());
             }
 
-            builder.private_(model.getIsPrivate()).homepage("www.flux7.com").issues(false).downloads(false).wiki(false)
-                    .description(model.getRepositoryDescription()).create();
+            if (model.getIsPrivate() == null) {
+                builder.private_(true).description(model.getRepositoryDescription()).create();
+            } else {
+                builder.private_(model.getIsPrivate()).description(model.getRepositoryDescription()).create();
+            }
+
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.SUCCESS)
+                    .build();
 
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            logger.log(e.getMessage());
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.FAILED)
+                    .message(e.getMessage())
+                    .build();
         }
-
-        return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                .status(OperationStatus.SUCCESS).build();
-
+        // TODO : code ends here
     }
 }

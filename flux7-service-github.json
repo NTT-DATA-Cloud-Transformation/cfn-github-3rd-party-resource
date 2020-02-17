@@ -6,7 +6,8 @@
     "properties": {
         "RepositoryName": {
             "description": "The name of the repository you want to create in GitHub with AWS CloudFormation stack creation.",
-            "type": "string"
+            "type": "string",
+            "pattern":"^[A-Za-z0-9_-]*\\.*[A-Za-z0-9_-]+$"
         },
         "RepositoryAccessToken": {
             "description": "The GitHub user's personal access token for the GitHub repository.",
@@ -31,8 +32,7 @@
     },
     "required": [
         "RepositoryName",
-        "RepositoryAccessToken",
-        "IsPrivate"
+        "RepositoryAccessToken"
     ],
     "handlers": {
         "create": {
