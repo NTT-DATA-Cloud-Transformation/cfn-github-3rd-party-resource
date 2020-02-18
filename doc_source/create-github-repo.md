@@ -1,5 +1,5 @@
 # Create GitHub repository
-You can create personal github repository or organizational repository using this  `Flux7::Service::GitHub` AWS resource.
+Create personal github repository or organizational repository using this  `Flux7::Service::GitHub` AWS resource.
 
 ## Syntax
 To declare this entity in your AWS CloudFormation template, use the following syntax: 
