@@ -1,9 +1,8 @@
-# Create GitHub repository
+# Update GitHub repository
 Update properties of GitHub repository created using `Flux7::Service::GitHub` AWS resource.
 
 ## Syntax
-To update this entity in your AWS CloudFormation template, use the following syntax.
-Change values of RepositoryDescription and IsPrivate in template to update github repository.
+Change values of RepositoryDescription and IsPrivate in your AWS CloudFormation template to update github repository. Use the following syntax -
 
 
 ### JSON
