@@ -19,26 +19,20 @@ To use third-party resources in your infrastructure and applications, now you ca
 
 ```
 - **flux7-service-github.json:**
-    
     It's resource provider schema file, it includes model of resource provider.
     
 - **pom.xml:**
-    
     This file contains information about the project and configuration details used by Maven to build the project.
 
 - **README.md:**
-
-    README file that contanins information about other files in the repository.
+    This file has information about other files in the repository.
 
 - **doc_source:**
-    
     This directory contains documentation about How to use `Flux7::Service::Github` custom resource.
 
 - **src/main/java/com/flux7/service/github:**
-
     This directory contains files (CallbackContext, handlers) that actually implement the resource's functionality.
 
 - **src/test/java/com/flux7/service/github:**
-
     This directory contains files that performs unit tests for handlers.
 
