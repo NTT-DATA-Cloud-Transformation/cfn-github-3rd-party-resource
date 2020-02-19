@@ -1,4 +1,10 @@
-# Flux7::Service::Github
+# Resource provider Flux7::Service::Github
+
+## Resource Providers
+
+To use third-party resources in your infrastructure and applications, now you can develop the resource providers for use within CloudFormation. The resource provider includes resource specification and handlers control API interactions with the underlying AWS or third-party services. 
+
+> :bulb: Complete documentation is at @ https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-types.html
 
 Congratulations on starting development! Next steps:
 
