@@ -21,7 +21,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
 
             GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
 
-            if (model.getOrganizationName() == null) {
+            if (model.getOrganization   Name() == null) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
                 builder = github.getOrganization(model.getOrganizationName())
@@ -34,18 +34,13 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                 builder.private_(model.getIsPrivate()).description(model.getRepositoryDescription()).create();
             }
 
-            return ProgressEvent.<ResourceModel, CallbackContext>builder()
-                    .resourceModel(model)
-                    .status(OperationStatus.SUCCESS)
-                    .build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
+                    .status(OperationStatus.SUCCESS).build();
 
         } catch (IOException | NullPointerException e) {
             logger.log(e.getMessage());
-            return ProgressEvent.<ResourceModel, CallbackContext>builder()
-                    .resourceModel(model)
-                    .status(OperationStatus.FAILED)
-                    .message(e.getMessage())
-                    .build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
+                    .status(OperationStatus.FAILED).message(e.getMessage()).build();
         }
         // TODO : code ends here
     }
