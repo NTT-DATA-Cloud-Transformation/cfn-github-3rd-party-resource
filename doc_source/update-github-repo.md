@@ -2,7 +2,7 @@
 Update properties of GitHub repository created using `Flux7::Service::GitHub` AWS resource.
 
 ## Syntax
-Change values of RepositoryDescription and IsPrivate in your AWS CloudFormation template to update github repository. Use the following syntax -
+Change values of RepositoryDescription and IsPrivate as required in your AWS CloudFormation template to update github repository. Alway have RepositoryName, RepositoryAccessToken and OrganizationName (if created repository is in Organization) in AWS CloudFormation template as these are required properties. Use the following syntax -
 
 
 ### JSON
@@ -15,7 +15,6 @@ File `stack.json` -
    "RepositoryDescription": String,
    "RepositoryAccessToken": String,
    "IsPrivate": Boolean,
-   "RepositoryOwner": String,
    "OrganizationName": String
  }
 }
@@ -30,7 +29,6 @@ Properties:
   RepositoryDescription: String
   RepositoryAccessToken: String
   IsPrivate: Boolean
-  RepositoryOwner: String
   OrganizationName: String
 ```
 
@@ -64,13 +62,6 @@ _IsPrivate_
 	Indicates whether the GitHub repository is a public repository. If so, you choose who can see and commit to this repository.
 	Required: No
 	Type: Boolean
-	Update requires: Update with No Interruption
-
-_RepositoryOwner_
-
-	The GitHub user name for the owner of the GitHub repository to be created. If this repository should be owned by a GitHub organization, provide its name.
-	Required: No
-	Type: String
 	Update requires: Update with No Interruption
  
  _OrganizationName_
