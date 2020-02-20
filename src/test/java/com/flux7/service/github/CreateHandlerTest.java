@@ -49,8 +49,8 @@ public class CreateHandlerTest {
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
-//        assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Requires authentication\",\"documentation_url\":\"https://developer.github.com/v3/repos/#create\"}");
+        assertThat(response.getMessage()).isNull();
+//        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Requires authentication\",\"documentation_url\":\"https://developer.github.com/v3/repos/#create\"}");
         assertThat(response.getErrorCode()).isNull();
     }
 }
