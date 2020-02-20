@@ -29,18 +29,35 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             }
 
             boolean isPrivate = true;
-            if (model.getIsPrivate()) isPrivate = model.getIsPrivate();
+            if (! (model.getIsPrivate() == null)) {isPrivate = model.getIsPrivate();}
+            boolean enableIssues = true;
+            if (! (model.getEnableIssues() == null)) {enableIssues = model.getEnableIssues();}
+            boolean enableDownloads = true;
+            if (! (model.getEnableDownloads() == null)) {enableDownloads = model.getEnableDownloads();}
+            boolean enableWiki = true;
+            if (! (model.getEnableWiki() == null)) {enableWiki = model.getEnableWiki();}
+            String repositoryDescription = " ";
+            if (! (model.getRepositoryDescription() == null)) {repositoryDescription = model.getRepositoryDescription();}
 
-            builder.private_(isPrivate).issues(model.getEnableIssues()).downloads(model.getEnableDownloads())
-                    .wiki(model.getEnableWiki()).description(model.getRepositoryDescription()).create();
+            builder.private_(isPrivate)
+                    .issues(enableIssues)
+                    .downloads(enableDownloads)
+                    .wiki(enableWiki)
+                    .description(repositoryDescription)
+                    .create();
 
-            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                    .status(OperationStatus.SUCCESS).build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.SUCCESS)
+                    .build();
 
         } catch (IOException | NullPointerException e) {
             logger.log(e.getMessage());
-            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                    .status(OperationStatus.FAILED).message(e.getMessage()).build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.FAILED)
+                    .message(e.getMessage())
+                    .build();
         }
         // TODO : code ends here
     }

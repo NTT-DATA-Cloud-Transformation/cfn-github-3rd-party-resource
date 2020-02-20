@@ -24,27 +24,38 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
 
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
-            boolean IsPrivate = model.getIsPrivate();
+
 
             if (model.getOrganizationName() == null) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
-                repo.setDescription(model.getRepositoryDescription());
-                repo.setPrivate(IsPrivate);
-                repo.enableDownloads(model.getEnableDownloads());
-                repo.enableWiki(model.getEnableWiki());
+
+                if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
+                if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}
+                if (! (model.getEnableDownloads() == null)) {repo.enableDownloads(model.getEnableDownloads());}
+                if (! (model.getEnableWiki() == null)) {repo.enableWiki(model.getEnableWiki());}
+                if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
+
             } else {
                 GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
-                repo.setDescription(model.getRepositoryDescription());
-                repo.setPrivate(IsPrivate);
-                repo.enableDownloads(model.getEnableDownloads());
-                repo.enableWiki(model.getEnableWiki());
+
+                if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
+                if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}
+                if (! (model.getEnableDownloads() == null)) {repo.enableDownloads(model.getEnableDownloads());}
+                if (! (model.getEnableWiki() == null)) {repo.enableWiki(model.getEnableWiki());}
+                if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
+
             }
-            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                    .status(OperationStatus.SUCCESS).build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.SUCCESS)
+                    .build();
         } catch (NullPointerException | IOException | IllegalStateException e) {
             logger.log(e.getMessage());
-            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
-                    .status(OperationStatus.FAILED).message(e.getMessage()).build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder()
+                    .resourceModel(model)
+                    .status(OperationStatus.FAILED)
+                    .message(e.getMessage())
+                    .build();
         }
 
         // TODO : code ends here
