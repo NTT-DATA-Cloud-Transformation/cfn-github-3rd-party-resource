@@ -24,35 +24,27 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
 
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
+            boolean IsPrivate = model.getIsPrivate();
 
             if (model.getOrganizationName() == null) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
                 repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate()) {
-                    repo.setPrivate(true);
-                } else {
-                    repo.setPrivate(false);
-                }
+                repo.setPrivate(IsPrivate);
+                repo.enableDownloads(model.getEnableDownloads());
+                repo.enableWiki(model.getEnableWiki());
             } else {
                 GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
                 repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate()) {
-                    repo.setPrivate(true);
-                } else {
-                    repo.setPrivate(false);
-                }
+                repo.setPrivate(IsPrivate);
+                repo.enableDownloads(model.getEnableDownloads());
+                repo.enableWiki(model.getEnableWiki());
             }
-            return ProgressEvent.<ResourceModel, CallbackContext>builder()
-                    .resourceModel(model)
-                    .status(OperationStatus.SUCCESS)
-                    .build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
+                    .status(OperationStatus.SUCCESS).build();
         } catch (NullPointerException | IOException | IllegalStateException e) {
             logger.log(e.getMessage());
-            return ProgressEvent.<ResourceModel, CallbackContext>builder()
-                    .resourceModel(model)
-                    .status(OperationStatus.FAILED)
-                    .message(e.getMessage())
-                    .build();
+            return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
+                    .status(OperationStatus.FAILED).message(e.getMessage()).build();
         }
 
         // TODO : code ends here

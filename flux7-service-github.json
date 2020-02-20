@@ -53,7 +53,7 @@
             "permissions": []
         }
     },
-    "createOnlyIdentifier": [
+    "createOnlyProperties": [
         "/properties/OrganizationName"
     ],
     "primaryIdentifier": [

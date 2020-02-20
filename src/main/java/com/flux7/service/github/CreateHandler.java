@@ -21,18 +21,18 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
 
             GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
 
-            if (model.getOrganization   Name() == null) {
+            if (model.getOrganizationName() == null) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
                 builder = github.getOrganization(model.getOrganizationName())
                         .createRepository(model.getRepositoryName());
             }
 
-            if (model.getIsPrivate() == null) {
-                builder.private_(true).description(model.getRepositoryDescription()).create();
-            } else {
-                builder.private_(model.getIsPrivate()).description(model.getRepositoryDescription()).create();
-            }
+            boolean isPrivate = true;
+            if (model.getIsPrivate()) isPrivate = model.getIsPrivate();
+
+            builder.private_(isPrivate).issues(model.getEnableIssues()).downloads(model.getEnableDownloads())
+                    .wiki(model.getEnableWiki()).description(model.getRepositoryDescription()).create();
 
             return ProgressEvent.<ResourceModel, CallbackContext>builder().resourceModel(model)
                     .status(OperationStatus.SUCCESS).build();
