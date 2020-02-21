@@ -14,8 +14,10 @@ File `stack.json` -
    "RepositoryDescription": String,
    "RepositoryAccessToken": String,
    "IsPrivate": Boolean,
-   "RepositoryOwner": String,
-   "OrganizationName": String
+   "OrganizationName": String,
+   "EnableIssues": Boolean,
+   "EnableWiki": Boolean,
+   "EnableDownloads": Boolean
  }
 }
 ```
@@ -31,6 +33,9 @@ Properties:
   IsPrivate: Boolean
   RepositoryOwner: String
   OrganizationName: String
+  EnableIssues: Boolean,
+  EnableWiki: Boolean,
+  EnableDownloads: Boolean
 ```
 
 ### Properties
@@ -64,19 +69,33 @@ _IsPrivate_
 	Required: No
 	Type: Boolean
 	Update requires: Update with No Interruption
-
-_RepositoryOwner_
-
-	The GitHub user name for the owner of the GitHub repository to be created. If this repository should be owned by a GitHub organization, provide its name.
-	Required: No
-	Type: String
-	Update requires: Update with No Interruption
  
  _OrganizationName_
 
 	If populated with existing Organization Name, creates a Repository on the Organization Account.
 	Required: No
 	Type: String
+	Update requires: Update with No Interruption
+
+ _EnableIssues_
+ 
+ 	Indicates whether to enable issues for the GitHub repository. You can use GitHub issues to track information and bugs for your repository.
+	Required: No
+	Type: Boolean
+	Update requires: Update with No Interruption
+ 
+ _EnableWiki_
+ 
+ 	Indicates whether to enable wiki for the GitHub repository. You can use GitHub wiki for hosting documentation for your repository in a wiki, so that others can use and contribute to your project.
+	Required: No
+	Type: Boolean
+	Update requires: Update with No Interruption
+	
+ _EnableDownloads_
+ 
+ 	Indicates whether to enable downloads for the GitHub repository. You can use GitHub downloads to publish a package to GitHub Packages to make the package available for others to download and re-use.
+	Required: No
+	Type: Boolean
 	Update requires: Update with No Interruption
 
 ### Command
