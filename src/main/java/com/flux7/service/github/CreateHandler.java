@@ -28,11 +28,23 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                         .createRepository(model.getRepositoryName());
             }
 
-            if (model.getIsPrivate() == null) {
-                builder.private_(true).description(model.getRepositoryDescription()).create();
-            } else {
-                builder.private_(model.getIsPrivate()).description(model.getRepositoryDescription()).create();
-            }
+            boolean isPrivate = true;
+            if (! (model.getIsPrivate() == null)) {isPrivate = model.getIsPrivate();}
+            boolean enableIssues = true;
+            if (! (model.getEnableIssues() == null)) {enableIssues = model.getEnableIssues();}
+            boolean enableDownloads = true;
+            if (! (model.getEnableDownloads() == null)) {enableDownloads = model.getEnableDownloads();}
+            boolean enableWiki = true;
+            if (! (model.getEnableWiki() == null)) {enableWiki = model.getEnableWiki();}
+            String repositoryDescription = " ";
+            if (! (model.getRepositoryDescription() == null)) {repositoryDescription = model.getRepositoryDescription();}
+
+            builder.private_(isPrivate)
+                    .issues(enableIssues)
+                    .downloads(enableDownloads)
+                    .wiki(enableWiki)
+                    .description(repositoryDescription)
+                    .create();
 
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                     .resourceModel(model)

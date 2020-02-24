@@ -25,22 +25,25 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
 
+
             if (model.getOrganizationName() == null) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
-                repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate()) {
-                    repo.setPrivate(true);
-                } else {
-                    repo.setPrivate(false);
-                }
+
+                if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
+                if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}
+                if (! (model.getEnableDownloads() == null)) {repo.enableDownloads(model.getEnableDownloads());}
+                if (! (model.getEnableWiki() == null)) {repo.enableWiki(model.getEnableWiki());}
+                if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
+
             } else {
                 GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
-                repo.setDescription(model.getRepositoryDescription());
-                if (model.getIsPrivate()) {
-                    repo.setPrivate(true);
-                } else {
-                    repo.setPrivate(false);
-                }
+
+                if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
+                if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}
+                if (! (model.getEnableDownloads() == null)) {repo.enableDownloads(model.getEnableDownloads());}
+                if (! (model.getEnableWiki() == null)) {repo.enableWiki(model.getEnableWiki());}
+                if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
+
             }
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                     .resourceModel(model)
