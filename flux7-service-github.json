@@ -56,6 +56,10 @@
             "permissions": []
         }
     },
+    "readOnlyProperties": [
+        "/properties/RepositoryName",
+        "/properties/RepositoryDescription"
+    ],
     "createOnlyProperties": [
         "/properties/OrganizationName"
     ],
