@@ -58,12 +58,17 @@
     },
     "readOnlyProperties": [
         "/properties/RepositoryName",
-        "/properties/RepositoryDescription"
+        "/properties/OrganizationName"
     ],
     "createOnlyProperties": [
         "/properties/OrganizationName"
     ],
     "primaryIdentifier": [
         "/properties/RepositoryName"
+    ],
+    "additionalIdentifiers": [
+        [
+            "/properties/OrganizationName"
+        ]
     ]
 }

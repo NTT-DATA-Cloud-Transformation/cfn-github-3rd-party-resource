@@ -38,19 +38,22 @@ public class ReadHandlerTest {
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
                 .desiredResourceState(model).build();
 
-        final ProgressEvent<ResourceModel, CallbackContext> response = handler.handleRequest(proxy, request, null,
-                logger);
+
+        final ProgressEvent<ResourceModel, CallbackContext> response
+                = handler.handleRequest(proxy, request, null, logger);
+
 
         assertThat(response).isNotNull();
         // assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
+        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
-        // assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage())
-                .isEqualTo("This operation requires a credential but none is given to the GitHub constructor");
+        assertThat(response.getMessage()).isNull();
+//        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Not Found\",\"documentation_url\":\"https://developer.github.com/v3/repos/#get\"}");
         assertThat(response.getErrorCode()).isNull();
+
+
     }
 }
