@@ -60,15 +60,11 @@
         "/properties/RepositoryName",
         "/properties/OrganizationName"
     ],
-    "createOnlyProperties": [
+    "primaryIdentifier": [
+        "/properties/RepositoryName",
         "/properties/OrganizationName"
     ],
-    "primaryIdentifier": [
-        "/properties/RepositoryName"
-    ],
-    "additionalIdentifiers": [
-        [
-            "/properties/OrganizationName"
-        ]
+    "writeOnlyProperties": [
+        "/properties/RepositoryAccessToken"
     ]
 }

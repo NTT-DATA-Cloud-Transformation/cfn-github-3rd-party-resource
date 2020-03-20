@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static software.amazon.cloudformation.proxy.HandlerErrorCode.InternalFailure;
 
 @ExtendWith(MockitoExtension.class)
 public class ReadHandlerTest {
@@ -45,14 +46,15 @@ public class ReadHandlerTest {
 
         assertThat(response).isNotNull();
         // assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+        assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
-        assertThat(response.getMessage()).isNull();
-//        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Not Found\",\"documentation_url\":\"https://developer.github.com/v3/repos/#get\"}");
-        assertThat(response.getErrorCode()).isNull();
+//        assertThat(response.getMessage()).isNull();
+        assertThat(response.getMessage()).isEqualTo("Internal error");
+//        assertThat(response.getErrorCode()).isNull();
+        assertThat(response.getErrorCode()).isEqualTo(InternalFailure);
 
 
     }
