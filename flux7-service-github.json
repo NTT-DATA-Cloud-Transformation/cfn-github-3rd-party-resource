@@ -22,7 +22,7 @@
             "type": "boolean"
         },
         "OrganizationName": {
-            "description": "If populated with existing Organization Name, creates a Repository on the Organization Account.",
+            "description": "Must be populated with existing Organization Name or the User Name of the owner, in order to create a repo in Organization Account or Personal Account respectively.",
             "type": "string"
         },
         "EnableIssues": {

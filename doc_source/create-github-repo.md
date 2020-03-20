@@ -72,8 +72,8 @@ _IsPrivate_
  
  _OrganizationName_
 
-	If populated with existing Organization Name, creates a Repository on the Organization Account.
-	Required: No
+	Must be populated with existing Organization Name or the User Name of the owner, in order to create a repo in Organization Account or Personal Account respectively.
+	Required: Yes
 	Type: String
 	Update requires: Update with No Interruption
 
