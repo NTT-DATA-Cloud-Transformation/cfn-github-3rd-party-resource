@@ -26,7 +26,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             String username = ghm.getLogin();
 
 
-            if (model.getOrganizationName() == null) {
+            if (model.getOrganizationName().equals(username)) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
 
                 if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}

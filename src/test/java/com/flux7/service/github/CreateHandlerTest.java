@@ -50,7 +50,7 @@ public class CreateHandlerTest {
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
 //        assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Requires authentication\",\"documentation_url\":\"https://developer.github.com/v3/repos/#create\"}");
+        assertThat(response.getMessage()).isEqualTo("This operation requires a credential but none is given to the GitHub constructor");
         assertThat(response.getErrorCode()).isNull();
     }
 }

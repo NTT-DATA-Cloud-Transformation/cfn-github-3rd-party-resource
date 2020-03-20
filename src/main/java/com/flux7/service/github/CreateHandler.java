@@ -1,6 +1,7 @@
 package com.flux7.service.github;
 
 import org.kohsuke.github.GHCreateRepositoryBuilder;
+import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import software.amazon.cloudformation.proxy.*;
@@ -20,8 +21,13 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             GHCreateRepositoryBuilder builder;
 
             GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GHMyself ghm = github.getMyself();
+            String username = ghm.getLogin();
 
-            if (model.getOrganizationName() == null) {
+            logger.log("User name: " + username);
+            logger.log("Model Organization name: " + model.getOrganizationName());
+
+            if (model.getOrganizationName().equals(username)) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
                 builder = github.getOrganization(model.getOrganizationName())
@@ -51,7 +57,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                     .status(OperationStatus.SUCCESS)
                     .build();
 
-        } catch (IOException | NullPointerException e) {
+        } catch (IllegalStateException | IOException | NullPointerException e) {
             logger.log(e.getMessage());
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                     .resourceModel(model)
