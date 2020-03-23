@@ -1,4 +1,4 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
@@ -13,9 +13,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static software.amazon.cloudformation.proxy.HandlerErrorCode.InternalFailure;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateHandlerTest {
+public class ReadHandlerTest {
 
     @Mock
     private AmazonWebServicesClientProxy proxy;
@@ -31,26 +32,30 @@ public class UpdateHandlerTest {
 
     @Test
     public void handleRequest_SimpleSuccess() {
-        final UpdateHandler handler = new UpdateHandler();
+        final ReadHandler handler = new ReadHandler();
 
         final ResourceModel model = ResourceModel.builder().build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-            .desiredResourceState(model)
-            .build();
+                .desiredResourceState(model).build();
+
 
         final ProgressEvent<ResourceModel, CallbackContext> response
-            = handler.handleRequest(proxy, request, null, logger);
+                = handler.handleRequest(proxy, request, null, logger);
+
 
         assertThat(response).isNotNull();
-//        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+        // assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
         assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
 //        assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage()).isEqualTo("This operation requires a credential but none is given to the GitHub constructor");
-        assertThat(response.getErrorCode()).isNull();
+        assertThat(response.getMessage()).isEqualTo("Internal error");
+//        assertThat(response.getErrorCode()).isNull();
+        assertThat(response.getErrorCode()).isEqualTo(InternalFailure);
+
+
     }
 }

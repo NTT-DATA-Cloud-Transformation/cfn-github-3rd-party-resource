@@ -1,4 +1,4 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
