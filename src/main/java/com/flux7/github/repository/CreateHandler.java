@@ -26,12 +26,12 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             String username = ghm.getLogin();
 
             logger.log("User name: " + username);
-            logger.log("Model Organization name: " + model.getOrganizationName());
+            logger.log("Model Organization or User name: " + model.getOrganizationOrUserName());
 
-            if (model.getOrganizationName().equals(username)) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
-                builder = github.getOrganization(model.getOrganizationName())
+                builder = github.getOrganization(model.getOrganizationOrUserName())
                         .createRepository(model.getRepositoryName());
             }
 

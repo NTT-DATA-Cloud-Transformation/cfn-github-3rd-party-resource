@@ -21,8 +21,8 @@
             "description": "Indicates whether the GitHub repository is a public repository. If so, you choose who can see and commit to this repository.",
             "type": "boolean"
         },
-        "OrganizationName": {
-            "description": "If populated with existing Organization Name, creates a Repository on the Organization Account.",
+        "OrganizationOrUserName": {
+            "description": "If populated with existing Organization or User Name, creates a Repository on the Organization or User Account respectively.",
             "type": "string"
         },
         "EnableIssues": {
@@ -58,11 +58,11 @@
     },
     "readOnlyProperties": [
         "/properties/RepositoryName",
-        "/properties/OrganizationName"
+        "/properties/OrganizationOrUserName"
     ],
     "primaryIdentifier": [
         "/properties/RepositoryName",
-        "/properties/OrganizationName"
+        "/properties/OrganizationOrUserName"
     ],
     "writeOnlyProperties": [
         "/properties/RepositoryAccessToken"

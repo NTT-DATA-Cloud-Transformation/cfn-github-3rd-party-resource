@@ -14,7 +14,7 @@ File `stack.json` -
    "RepositoryDescription": String,
    "RepositoryAccessToken": String,
    "IsPrivate": Boolean,
-   "OrganizationName": String,
+   "OrganizationOrUserName": String,
    "EnableIssues": Boolean,
    "EnableWiki": Boolean,
    "EnableDownloads": Boolean
@@ -32,7 +32,7 @@ Properties:
   RepositoryAccessToken: String
   IsPrivate: Boolean
   RepositoryOwner: String
-  OrganizationName: String
+  OrganizationOrUserName: String
   EnableIssues: Boolean,
   EnableWiki: Boolean,
   EnableDownloads: Boolean
@@ -70,7 +70,7 @@ _IsPrivate_
 	Type: Boolean
 	Update requires: Update with No Interruption
  
- _OrganizationName_
+ _OrganizationOrUserName_
 
 	If populated with existing Organization Name, creates a Repository on the Organization Account.
 	Required: No

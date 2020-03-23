@@ -27,7 +27,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
             String username = ghm.getLogin();
 
 
-            if (model.getOrganizationName().equals(username)) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
 
                 if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
@@ -37,7 +37,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
                 if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
 
             } else {
-                GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
+                GHRepository repo = github.getRepository(model.getOrganizationOrUserName() + "/" + model.getRepositoryName());
 
                 if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
                 if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}

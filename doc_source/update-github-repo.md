@@ -2,7 +2,7 @@
 Update properties of GitHub repository created using `Flux7::Service::GitHub` AWS resource.
 
 ## Syntax
-Change the values in your AWS CloudFormation template to update github repository as required except RepositoryName and OrganizationName. Alway have RepositoryName, RepositoryAccessToken and OrganizationName (if created repository is in Organization) in AWS CloudFormation template as these are required properties. Use the following syntax -
+Change the values in your AWS CloudFormation template to update github repository as required except RepositoryName and OrganizationOrUserName. Alway have RepositoryName, RepositoryAccessToken and OrganizationOrUserName in AWS CloudFormation template as these are required properties. Use the following syntax -
 
 
 ### JSON
@@ -15,7 +15,7 @@ File `stack.json` -
    "RepositoryDescription": String,
    "RepositoryAccessToken": String,
    "IsPrivate": Boolean,
-   "OrganizationName": String,
+   "OrganizationOrUserName": String,
    "EnableIssues": Boolean,
    "EnableWiki": Boolean,
    "EnableDownloads": Boolean
@@ -33,7 +33,7 @@ Properties:
   RepositoryAccessToken: String
   IsPrivate: Boolean
   RepositoryOwner: String
-  OrganizationName: String
+  OrganizationOrUserName: String
   EnableIssues: Boolean,
   EnableWiki: Boolean,
   EnableDownloads: Boolean
@@ -71,9 +71,9 @@ _IsPrivate_
 	Type: Boolean
 	Update requires: Update with No Interruption
  
- _OrganizationName_
+ _OrganizationOrUserName_
 
-	If populated with existing Organization Name, creates a Repository on the Organization Account.
+	If populated with existing Organization or User Name, creates a Repository in the Organization or User Account respectively.
 	Required: No
 	Type: String
 	Update requires: Updates are not Supported

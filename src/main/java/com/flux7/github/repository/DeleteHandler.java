@@ -31,12 +31,12 @@ public class DeleteHandler extends BaseHandler<CallbackContext> {
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
 
-            if (model.getOrganizationName() == null) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
                 repo.delete();
 
             } else {
-                GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
+                GHRepository repo = github.getRepository(model.getOrganizationOrUserName() + "/" + model.getRepositoryName());
                 repo.delete();
             }
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
