@@ -1,6 +1,6 @@
 {
-    "typeName": "Flux7::Github::Repository",
-    "description": "Resource Type definition for Flux7::Github::Repository.",
+    "typeName": "Flux7::GitHub::Repository",
+    "description": "Resource Type definition for Flux7::GitHub::Repository.",
     "additionalProperties": false,
     "sourceUrl": "https://github.com/Flux7Labs/aws-3rd-party-github-repo.git",
     "properties": {

@@ -1,5 +1,5 @@
 {
-    "typeName": "Flux7::Github::Repository",
+    "typeName": "Flux7::GitHub::Repository",
     "language": "java",
     "runtime": "java8",
     "entrypoint": "com.flux7.github.repository.HandlerWrapper::handleRequest",

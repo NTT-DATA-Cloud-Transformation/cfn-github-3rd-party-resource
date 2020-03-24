@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: AWS SAM template for the Flux7::Github::Repository resource type
+Description: AWS SAM template for the Flux7::GitHub::Repository resource type
 
 Globals:
   Function:
