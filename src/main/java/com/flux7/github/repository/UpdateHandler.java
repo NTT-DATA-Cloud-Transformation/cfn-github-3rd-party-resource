@@ -19,7 +19,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
 
         try {
 
-            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getPersonalAccessToken()).build();
 
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();

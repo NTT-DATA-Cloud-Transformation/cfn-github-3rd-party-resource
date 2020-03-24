@@ -12,7 +12,7 @@ File `stack.json` -
  "Properties": {
    "RepositoryName": String,
    "RepositoryDescription": String,
-   "RepositoryAccessToken": String,
+   "PersonalAccessToken": String,
    "IsPrivate": Boolean,
    "OrganizationOrUserName": String,
    "EnableIssues": Boolean,
@@ -29,7 +29,7 @@ Type: Flux7::Service::Github
 Properties:
   RepositoryName: String
   RepositoryDescription: String
-  RepositoryAccessToken: String
+  PersonalAccessToken: String
   IsPrivate: Boolean
   RepositoryOwner: String
   OrganizationOrUserName: String
@@ -56,7 +56,7 @@ _RepositoryDescription_
 	Type: String
 	Update requires: Update with No Interruption
  
-_RepositoryAccessToken_
+_PersonalAccessToken_
 
 	The GitHub user's personal access token for the GitHub repository.
 	Required: Yes

@@ -9,7 +9,7 @@
             "type": "string",
             "pattern":"^[A-Za-z0-9_-]*\\.*[A-Za-z0-9_-]+$"
         },
-        "RepositoryAccessToken": {
+        "PersonalAccessToken": {
             "description": "The GitHub user's personal access token for the GitHub repository.",
             "type": "string"
         },
@@ -40,7 +40,7 @@
     },
     "required": [
         "RepositoryName",
-        "RepositoryAccessToken"
+        "PersonalAccessToken"
     ],
     "handlers": {
         "create": {
@@ -65,6 +65,6 @@
         "/properties/OrganizationOrUserName"
     ],
     "writeOnlyProperties": [
-        "/properties/RepositoryAccessToken"
+        "/properties/PersonalAccessToken"
     ]
 }

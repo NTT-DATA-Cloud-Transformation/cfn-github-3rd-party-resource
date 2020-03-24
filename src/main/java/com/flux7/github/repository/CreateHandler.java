@@ -20,7 +20,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
         try {
             GHCreateRepositoryBuilder builder;
 
-            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getPersonalAccessToken()).build();
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
 
