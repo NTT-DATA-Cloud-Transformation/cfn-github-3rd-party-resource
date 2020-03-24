@@ -1,23 +1,22 @@
 package com.flux7.github.repository;
 
-
 import org.kohsuke.github.GHCreateRepositoryBuilder;
 import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import software.amazon.cloudformation.proxy.*;
-
 import java.io.IOException;
 
 public class CreateHandler extends BaseHandler<CallbackContext> {
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(final AmazonWebServicesClientProxy proxy,
-                                                                       final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
+                                                                       final ResourceHandlerRequest<ResourceModel> request,
+                                                                       final CallbackContext callbackContext,
                                                                        final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-        // TODO : code starts here
+
         try {
             GHCreateRepositoryBuilder builder;
 
@@ -25,13 +24,10 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
 
-            logger.log("User name: " + username);
-            logger.log("Model Organization name: " + model.getOrganizationName());
-
-            if (model.getOrganizationName().equals(username)) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
-                builder = github.getOrganization(model.getOrganizationName())
+                builder = github.getOrganization(model.getOrganizationOrUserName())
                         .createRepository(model.getRepositoryName());
             }
 
@@ -66,6 +62,5 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                     .message(e.getMessage())
                     .build();
         }
-        // TODO : code ends here
     }
 }
