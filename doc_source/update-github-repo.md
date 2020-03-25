@@ -1,5 +1,5 @@
 # Update GitHub repository
-Update properties of GitHub repository created using `Flux7::Service::GitHub` AWS resource.
+Update properties of GitHub repository created using `Flux7::GitHub::Repository` AWS resource.
 
 ## Syntax
 Change the values in your AWS CloudFormation template to update github repository as required except RepositoryName and OrganizationOrUserName. Alway have RepositoryName, PersonalAccessToken and OrganizationOrUserName in AWS CloudFormation template as these are required properties. Use the following syntax -
@@ -9,7 +9,7 @@ Change the values in your AWS CloudFormation template to update github repositor
 File `stack.json` -
 ```
 {
- "Type": "Flux7::Service::Github",
+ "Type": "Flux7::GitHub::Repository",
  "Properties": {
    "RepositoryName": String,
    "RepositoryDescription": String,
@@ -26,7 +26,7 @@ File `stack.json` -
 ### YAML
 File `stack.yaml` -
 ```
-Type: Flux7::Service::Github
+Type: Flux7::GitHub::Repository
 Properties:
   RepositoryName: String
   RepositoryDescription: String

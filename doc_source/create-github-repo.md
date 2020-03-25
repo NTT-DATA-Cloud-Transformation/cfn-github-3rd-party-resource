@@ -1,5 +1,5 @@
 # Create GitHub repository
-Create personal github repository or organizational repository using this  `Flux7::Service::GitHub` AWS resource.
+Create personal github repository or organizational repository using this  `Flux7::GitHub::Repository` AWS resource.
 
 ## Syntax
 To declare this entity in your AWS CloudFormation template, use the following syntax: 
@@ -8,7 +8,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 File `stack.json` -
 ```
 {
- "Type": "Flux7::Service::Github",
+ "Type": "Flux7::GitHub::Repository",
  "Properties": {
    "RepositoryName": String,
    "RepositoryDescription": String,
@@ -25,7 +25,7 @@ File `stack.json` -
 ### YAML
 File `stack.yaml` -
 ```
-Type: Flux7::Service::Github
+Type: Flux7::GitHub::Repository
 Properties:
   RepositoryName: String
   RepositoryDescription: String

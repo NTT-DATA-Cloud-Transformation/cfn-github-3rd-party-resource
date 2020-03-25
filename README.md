@@ -1,4 +1,4 @@
-# Resource provider Flux7::Service::Github
+# Resource provider Flux7::GitHub::Repository
 
 ## Resource Providers
 
@@ -10,15 +10,15 @@ To use third-party resources in your infrastructure and applications, now you ca
 ```
 .
 ├── doc_source
-├── flux7-service-github.json
+├── flux7-github-repository.json
 ├── pom.xml
 ├── README.md
 └── src
-    ├── main/java/com/flux7/service/github
-    └── test/java/com/flux7/service/github
+    ├── main/java/com/flux7/github/repository
+    └── test/java/com/flux7/github/repository
 
 ```
-- **flux7-service-github.json:**
+- **flux7-github-repository.json:**
     It's resource provider schema file, it includes model of resource provider.
     
 - **pom.xml:**
@@ -28,11 +28,11 @@ To use third-party resources in your infrastructure and applications, now you ca
     This file has information about other files in the repository.
 
 - **doc_source:**
-    This directory contains documentation about How to use `Flux7::Service::Github` custom resource.
+    This directory contains documentation about How to use `Flux7::GitHub::Repository` custom resource.
 
-- **src/main/java/com/flux7/service/github:**
+- **src/main/java/com/flux7/github/repository:**
     This directory contains files (CallbackContext, handlers) that actually implement the resource's functionality.
 
-- **src/test/java/com/flux7/service/github:**
+- **src/test/java/com/flux7/github/repository:**
     This directory contains files that performs unit tests for handlers.
 
