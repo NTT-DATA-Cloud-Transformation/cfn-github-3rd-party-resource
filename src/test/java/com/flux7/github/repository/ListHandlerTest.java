@@ -1,4 +1,4 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateHandlerTest {
+public class ListHandlerTest {
 
     @Mock
     private AmazonWebServicesClientProxy proxy;
@@ -31,7 +31,7 @@ public class CreateHandlerTest {
 
     @Test
     public void handleRequest_SimpleSuccess() {
-        final CreateHandler handler = new CreateHandler();
+        final ListHandler handler = new ListHandler();
 
         final ResourceModel model = ResourceModel.builder().build();
 
@@ -39,18 +39,16 @@ public class CreateHandlerTest {
             .desiredResourceState(model)
             .build();
 
-        final ProgressEvent<ResourceModel, CallbackContext> response
-            = handler.handleRequest(proxy, request, null, logger);
+        final ProgressEvent<ResourceModel, CallbackContext> response =
+            handler.handleRequest(proxy, request, null, logger);
 
         assertThat(response).isNotNull();
-//        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
+        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
-        assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
-        assertThat(response.getResourceModels()).isNull();
-//        assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage()).isEqualTo("{\"message\":\"Requires authentication\",\"documentation_url\":\"https://developer.github.com/v3/repos/#create\"}");
+        assertThat(response.getResourceModel()).isNull();
+        assertThat(response.getResourceModels()).isNotNull();
+        assertThat(response.getMessage()).isNull();
         assertThat(response.getErrorCode()).isNull();
     }
 }

@@ -1,30 +1,33 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import org.kohsuke.github.GHCreateRepositoryBuilder;
+import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import software.amazon.cloudformation.proxy.*;
-
 import java.io.IOException;
 
 public class CreateHandler extends BaseHandler<CallbackContext> {
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(final AmazonWebServicesClientProxy proxy,
-            final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
-            final Logger logger) {
+                                                                       final ResourceHandlerRequest<ResourceModel> request,
+                                                                       final CallbackContext callbackContext,
+                                                                       final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-        // TODO : code starts here
+
         try {
             GHCreateRepositoryBuilder builder;
 
-            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getPersonalAccessToken()).build();
+            GHMyself ghm = github.getMyself();
+            String username = ghm.getLogin();
 
-            if (model.getOrganizationName() == null) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 builder = github.createRepository(model.getRepositoryName());
             } else {
-                builder = github.getOrganization(model.getOrganizationName())
+                builder = github.getOrganization(model.getOrganizationOrUserName())
                         .createRepository(model.getRepositoryName());
             }
 
@@ -51,7 +54,7 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                     .status(OperationStatus.SUCCESS)
                     .build();
 
-        } catch (IOException | NullPointerException e) {
+        } catch (IllegalStateException | IOException | NullPointerException e) {
             logger.log(e.getMessage());
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                     .resourceModel(model)
@@ -59,6 +62,5 @@ public class CreateHandler extends BaseHandler<CallbackContext> {
                     .message(e.getMessage())
                     .build();
         }
-        // TODO : code ends here
     }
 }

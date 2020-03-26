@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.flux7.service.github</groupId>
-    <artifactId>flux7-service-github-handler</artifactId>
-    <name>flux7-service-github-handler</name>
+    <groupId>com.flux7.github.repository</groupId>
+    <artifactId>flux7-github-repository-handler</artifactId>
+    <name>flux7-github-repository-handler</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -26,6 +26,12 @@
     </repositories>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M4</version>
+        </dependency>
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
@@ -84,12 +90,20 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <runOrder>alphabetical</runOrder>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
                     <compilerArgs>
                         <arg>-Xlint:all,-options,-processing</arg>
-<!--                        <arg>-Werror</arg>-->
+                        <!--                        <arg>-Werror</arg>-->
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -213,7 +227,7 @@
             <resource>
                 <directory>${project.basedir}</directory>
                 <includes>
-                    <include>flux7-service-github.json</include>
+                    <include>flux7-github-repository.json</include>
                 </includes>
             </resource>
         </resources>

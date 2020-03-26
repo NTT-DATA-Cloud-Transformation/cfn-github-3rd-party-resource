@@ -1,5 +1,7 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
+
+import org.junit.jupiter.api.condition.DisabledIf;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
 import software.amazon.cloudformation.proxy.OperationStatus;
@@ -15,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-public class DeleteHandlerTest {
+public class CreateHandlerTest {
 
     @Mock
     private AmazonWebServicesClientProxy proxy;
@@ -30,27 +32,37 @@ public class DeleteHandlerTest {
     }
 
     @Test
+    @DisabledIf("systemProperty.get('RepositoryName') == null || systemProperty.get('AccessToken') == null || systemProperty.get('OrganizationOrUserName') == null")
     public void handleRequest_SimpleSuccess() {
-        final DeleteHandler handler = new DeleteHandler();
+        final CreateHandler handler = new CreateHandler();
 
         final ResourceModel model = ResourceModel.builder().build();
+        model.setRepositoryName(System.getProperty("RepositoryName"));
+        model.setPersonalAccessToken(System.getProperty("AccessToken"));
+        model.setOrganizationOrUserName(System.getProperty("OrganizationOrUserName"));
+        model.setRepositoryDescription("Repository description");
+        model.setIsPrivate(true);
+        model.setEnableIssues(true);
+        model.setEnableWiki(true);
+        model.setEnableDownloads(true);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-            .desiredResourceState(model)
-            .build();
+                .desiredResourceState(model)
+                .build();
 
         final ProgressEvent<ResourceModel, CallbackContext> response
-            = handler.handleRequest(proxy, request, null, logger);
+                = handler.handleRequest(proxy, request, null, logger);
 
         assertThat(response).isNotNull();
-//        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
+        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
         assertThat(response.getCallbackContext()).isNull();
         assertThat(response.getCallbackDelaySeconds()).isEqualTo(0);
         assertThat(response.getResourceModel()).isEqualTo(request.getDesiredResourceState());
         assertThat(response.getResourceModels()).isNull();
-//        assertThat(response.getMessage()).isNull();
-        assertThat(response.getMessage()).isEqualTo("This operation requires a credential but none is given to the GitHub constructor");
+        assertThat(response.getMessage()).isNull();
         assertThat(response.getErrorCode()).isNull();
+
+        final ProgressEvent<ResourceModel, CallbackContext> response1
+                = new DeleteHandler().handleRequest(proxy, request, null, logger);
     }
 }

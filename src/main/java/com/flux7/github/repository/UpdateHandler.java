@@ -1,32 +1,30 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import software.amazon.cloudformation.proxy.*;
-
 import java.io.IOException;
 
 public class UpdateHandler extends BaseHandler<CallbackContext> {
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(final AmazonWebServicesClientProxy proxy,
-            final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
-            final Logger logger) {
+                                                                       final ResourceHandlerRequest<ResourceModel> request,
+                                                                       final CallbackContext callbackContext,
+                                                                       final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
-        // TODO : code starts here
 
         try {
 
-            GitHub github = new GitHubBuilder().withOAuthToken(model.getRepositoryAccessToken()).build();
+            GitHub github = new GitHubBuilder().withOAuthToken(model.getPersonalAccessToken()).build();
 
             GHMyself ghm = github.getMyself();
             String username = ghm.getLogin();
 
-
-            if (model.getOrganizationName() == null) {
+            if (model.getOrganizationOrUserName().equals(username)) {
                 GHRepository repo = github.getRepository(username + "/" + model.getRepositoryName());
 
                 if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
@@ -36,7 +34,7 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
                 if (! (model.getEnableIssues() == null)) {repo.enableIssueTracker(model.getEnableIssues());}
 
             } else {
-                GHRepository repo = github.getRepository(model.getOrganizationName() + "/" + model.getRepositoryName());
+                GHRepository repo = github.getRepository(model.getOrganizationOrUserName() + "/" + model.getRepositoryName());
 
                 if (! (model.getRepositoryDescription() == null)) {repo.setDescription(model.getRepositoryDescription());}
                 if (! (model.getIsPrivate() == null)) {repo.setPrivate(model.getIsPrivate());}
@@ -57,7 +55,5 @@ public class UpdateHandler extends BaseHandler<CallbackContext> {
                     .message(e.getMessage())
                     .build();
         }
-
-        // TODO : code ends here
     }
 }

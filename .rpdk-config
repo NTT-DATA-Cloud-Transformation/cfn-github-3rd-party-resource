@@ -1,15 +1,15 @@
 {
-    "typeName": "Flux7::Service::Github",
+    "typeName": "Flux7::GitHub::Repository",
     "language": "java",
     "runtime": "java8",
-    "entrypoint": "com.flux7.service.github.HandlerWrapper::handleRequest",
-    "testEntrypoint": "com.flux7.service.github.HandlerWrapper::testEntrypoint",
+    "entrypoint": "com.flux7.github.repository.HandlerWrapper::handleRequest",
+    "testEntrypoint": "com.flux7.github.repository.HandlerWrapper::testEntrypoint",
     "settings": {
         "namespace": [
             "com",
             "flux7",
-            "service",
-            "github"
+            "github",
+            "repository"
         ]
     }
 }

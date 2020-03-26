@@ -1,4 +1,4 @@
-package com.flux7.service.github;
+package com.flux7.github.repository;
 
 import lombok.Builder;
 import lombok.Data;

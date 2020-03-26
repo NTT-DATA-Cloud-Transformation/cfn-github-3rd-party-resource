@@ -1,21 +1,21 @@
 # Update GitHub repository
-Update properties of GitHub repository created using `Flux7::Service::GitHub` AWS resource.
+Update properties of GitHub repository created using `Flux7::GitHub::Repository` AWS resource.
 
 ## Syntax
-Change the values in your AWS CloudFormation template to update github repository as required except RepositoryName and OrganizationName. Alway have RepositoryName, RepositoryAccessToken and OrganizationName (if created repository is in Organization) in AWS CloudFormation template as these are required properties. Use the following syntax -
+Change the values in your AWS CloudFormation template to update github repository as required except RepositoryName and OrganizationOrUserName. Alway have RepositoryName, PersonalAccessToken and OrganizationOrUserName in AWS CloudFormation template as these are required properties. Use the following syntax -
 
 
 ### JSON
 File `stack.json` -
 ```
 {
- "Type": "Flux7::Service::Github",
+ "Type": "Flux7::GitHub::Repository",
  "Properties": {
    "RepositoryName": String,
    "RepositoryDescription": String,
-   "RepositoryAccessToken": String,
+   "PersonalAccessToken": String,
    "IsPrivate": Boolean,
-   "OrganizationName": String,
+   "OrganizationOrUserName": String,
    "EnableIssues": Boolean,
    "EnableWiki": Boolean,
    "EnableDownloads": Boolean
@@ -26,14 +26,14 @@ File `stack.json` -
 ### YAML
 File `stack.yaml` -
 ```
-Type: Flux7::Service::Github
+Type: Flux7::GitHub::Repository
 Properties:
   RepositoryName: String
   RepositoryDescription: String
-  RepositoryAccessToken: String
+  PersonalAccessToken: String
   IsPrivate: Boolean
   RepositoryOwner: String
-  OrganizationName: String
+  OrganizationOrUserName: String
   EnableIssues: Boolean,
   EnableWiki: Boolean,
   EnableDownloads: Boolean
@@ -57,7 +57,7 @@ _RepositoryDescription_
 	Type: String
 	Update requires: Update with No Interruption
  
-_RepositoryAccessToken_
+_PersonalAccessToken_
 
 	The GitHub user's personal access token for the GitHub repository.
 	Required: Yes
@@ -71,10 +71,10 @@ _IsPrivate_
 	Type: Boolean
 	Update requires: Update with No Interruption
  
- _OrganizationName_
+ _OrganizationOrUserName_
 
-	If populated with existing Organization Name, creates a Repository on the Organization Account.
-	Required: No
+	Must be populated with existing Organization Name or the User Name of the owner, in order to create a repo in Organization Account or Personal Account respectively.
+	Required: Yes
 	Type: String
 	Update requires: Updates are not Supported
  

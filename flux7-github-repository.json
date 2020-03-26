@@ -1,6 +1,6 @@
 {
-    "typeName": "Flux7::Service::Github",
-    "description": "Resource Type definition for Flux7::Service::Github.",
+    "typeName": "Flux7::GitHub::Repository",
+    "description": "Resource Type definition for Flux7::GitHub::Repository.",
     "additionalProperties": false,
     "sourceUrl": "https://github.com/Flux7Labs/aws-3rd-party-github-repo.git",
     "properties": {
@@ -9,38 +9,43 @@
             "type": "string",
             "pattern":"^[A-Za-z0-9_-]*\\.*[A-Za-z0-9_-]+$"
         },
-        "RepositoryAccessToken": {
+        "PersonalAccessToken": {
             "description": "The GitHub user's personal access token for the GitHub repository.",
             "type": "string"
         },
         "RepositoryDescription": {
             "description": "A comment or description about the new repository. This description is displayed in GitHub after the repository is created.",
-            "type": "string"
+            "type": "string",
+            "default": " "
         },
         "IsPrivate": {
             "description": "Indicates whether the GitHub repository is a public repository. If so, you choose who can see and commit to this repository.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
-        "OrganizationName": {
-            "description": "If populated with existing Organization Name, creates a Repository on the Organization Account.",
+        "OrganizationOrUserName": {
+            "description": "If populated with existing Organization or User Name, creates a Repository on the Organization or User Account respectively.",
             "type": "string"
         },
         "EnableIssues": {
             "description": "Indicates whether to enable issues for the GitHub repository. You can use GitHub issues to track information and bugs for your repository.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "EnableWiki": {
             "description": "Indicates whether to enable wiki for the GitHub repository. You can use GitHub wiki for hosting documentation for your repository in a wiki, so that others can use and contribute to your project.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         },
         "EnableDownloads": {
             "description": "Indicates whether to enable downloads for the GitHub repository. You can use GitHub downloads to publish a package to GitHub Packages to make the package available for others to download and re-use.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
         }
     },
     "required": [
         "RepositoryName",
-        "RepositoryAccessToken"
+        "PersonalAccessToken"
     ],
     "handlers": {
         "create": {
@@ -51,12 +56,20 @@
         },
         "update": {
             "permissions": []
+        },
+        "read": {
+            "permissions": []
         }
     },
-    "createOnlyProperties": [
-        "/properties/OrganizationName"
+    "readOnlyProperties": [
+        "/properties/RepositoryName",
+        "/properties/OrganizationOrUserName"
     ],
     "primaryIdentifier": [
-        "/properties/RepositoryName"
+        "/properties/RepositoryName",
+        "/properties/OrganizationOrUserName"
+    ],
+    "writeOnlyProperties": [
+        "/properties/PersonalAccessToken"
     ]
 }
