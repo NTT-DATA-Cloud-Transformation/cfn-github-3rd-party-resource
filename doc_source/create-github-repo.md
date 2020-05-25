@@ -31,10 +31,9 @@ Properties:
   RepositoryDescription: String
   PersonalAccessToken: String
   IsPrivate: Boolean
-  RepositoryOwner: String
   OrganizationOrUserName: String
-  EnableIssues: Boolean,
-  EnableWiki: Boolean,
+  EnableIssues: Boolean
+  EnableWiki: Boolean
   EnableDownloads: Boolean
 ```
 
@@ -98,8 +97,25 @@ _IsPrivate_
 	Type: Boolean
 	Update requires: Update with No Interruption
 
-### Command
-Following command creates CloudFormation stack that creates GitHub repository with above details.
+### Example
+Content of `stack.yaml`
 ```
-aws cloudformation create-stack --region us-east-1 --template-body "file://stack.json" --stack-name "GitHub-Repo-CF-Stack"
+Resources:
+  MyGithubRepo:
+    Type: Flux7::GitHub::Repository
+    Properties:
+      RepositoryName: Github-Test
+      RepositoryDescription: "Github Test repository"
+      PersonalAccessToken: "{{resolve:secretsmanager:<Secret-Manager-Name>:SecretString:<Secret-Key-Name>}}"
+      IsPrivate: true
+      OrganizationOrUserName: Flux7Labs
+      EnableIssues: true
+      EnableWiki: true
+      EnableDownloads: true
+```
+Where PersonalAccessToken is stored in Secretsmanager with `Secret-Manager-Name` as secrete manger name and `Secret-Key-Name` as secrete key.
+
+Execute following command to create CloudFormation stack that creates GitHub repository resource with above details.
+```
+aws cloudformation create-stack --region us-east-1 --template-body "file://stack.yaml" --stack-name "GitHub-Repo-CF-Stack"
 ```
